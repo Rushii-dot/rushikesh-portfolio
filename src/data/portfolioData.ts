@@ -60,7 +60,7 @@ export const portfolioProfile: PortfolioProfile = {
   location: "Pune, India",
   email: "rushikeshshinde9637@gmail.com",
   github: "https://github.com/rushikeshshinde",
-  linkedin: "https://linkedin.com/in/rushikeshshinde",
+  linkedin: "https://www.linkedin.com/in/rushikesh-shinde-197444322/",
   resumeUrl: "/resume.pdf", // Path to the uploaded PDF in public folder
   status: "Open to learning, collaborations & internships",
   academicStatus: "Second Year B.Tech — Computer Engineering",
