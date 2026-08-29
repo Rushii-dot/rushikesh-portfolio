@@ -29,7 +29,16 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ project, index
            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div className="space-y-2">
                 <span className="meta-tag text-[#77736B]">0{index + 1} / FEATURED CASE STUDY</span>
-                <h2 className="title-editorial text-[#171717] leading-none">{project.title}</h2>
+                <div className="flex items-center gap-3 sm:gap-4">
+                  {project.logo && (
+                    <img 
+                      src={project.logo} 
+                      alt={`${project.title} Logo`} 
+                      className="w-8 h-8 sm:w-12 sm:h-12 object-cover rounded-sm border border-[#D8D3C8] flex-shrink-0"
+                    />
+                  )}
+                  <h2 className="title-editorial text-[#171717] leading-none">{project.title}</h2>
+                </div>
               </div>
               <div className="flex items-center gap-4">
                  <span className="text-xs font-mono uppercase tracking-widest text-[#77736B]">{project.year}</span>
@@ -39,15 +48,15 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ project, index
               </div>
            </div>
 
-           <div className="relative group overflow-hidden">
+            <div className="relative group overflow-hidden">
               {isRadius ? (
                 <RadiusVisual isHovered={isHovered} />
               ) : (
-                <div className="relative w-full h-[500px] sm:h-[650px] bg-[#EBE6DC] overflow-hidden border border-[#D8D3C8]">
+                <div className="relative w-full h-[350px] sm:h-[650px] bg-[#EBE6DC] overflow-hidden border border-[#D8D3C8]">
                    <HealthClubVisual isHovered={isHovered} />
-                   <div className="absolute top-8 left-8 space-y-1">
-                      <span className="block font-mono text-[10px] text-[#7C8B78] font-bold uppercase tracking-[0.3em]">Client Production Website</span>
-                      <span className="block font-display text-4xl font-bold text-[#171717]">Health Club Barshi</span>
+                   <div className="absolute top-6 left-6 sm:top-8 sm:left-8 space-y-1">
+                      <span className="block font-mono text-[8px] sm:text-[10px] text-[#7C8B78] font-bold uppercase tracking-[0.3em]">Client Production Website</span>
+                      <span className="block font-display text-2xl sm:text-4xl font-bold text-[#171717]">Health Club Barshi</span>
                    </div>
                 </div>
               )}
