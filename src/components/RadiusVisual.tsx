@@ -10,19 +10,17 @@ export const RadiusVisual: React.FC<RadiusVisualProps> = ({ isHovered }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
-  // Real screenshot paths from the project root
-  const screenshots = [
-    '/Screenshot_20260829_124115.jpg',
-    '/Screenshot_20260829_124102.jpg',
-    '/Screenshot_20260829_123948.jpg',
-    '/Screenshot_20260829_124201.jpg',
-    '/Screenshot_20260829_124221.jpg',
+  // Using 3 primary real screenshots for the showcase composition
+  const mainScreenshots = [
+    '/Screenshot_20260829_124115.jpg', // Left
+    '/Screenshot_20260829_123948.jpg', // Center (Main)
+    '/Screenshot_20260829_124201.jpg', // Right
   ];
 
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[450px] sm:h-[580px] bg-[#EBE6DC] overflow-hidden border border-[#D8D3C8] transition-all duration-700 ease-out flex items-center group"
+      className="relative w-full h-[500px] sm:h-[650px] bg-[#EBE6DC] overflow-hidden border border-[#D8D3C8] transition-all duration-700 ease-out flex items-center justify-center group"
     >
       {/* Editorial Grid Background */}
       <div
@@ -36,52 +34,45 @@ export const RadiusVisual: React.FC<RadiusVisualProps> = ({ isHovered }) => {
         }}
       />
 
-      {/* 3D Gallery Track */}
-      <div className="relative w-full overflow-x-auto no-scrollbar py-12 px-8 sm:px-16">
-        <motion.div 
-          initial={{ x: 100, opacity: 0 }}
-          animate={isInView ? { x: 0, opacity: 1 } : {}}
+      {/* Composition Container */}
+      <div className="relative w-full h-full flex items-center justify-center">
+        {/* Left Phone */}
+        <motion.div
+          initial={{ x: -100, opacity: 0, rotate: -15, scale: 0.8 }}
+          animate={isInView ? { x: -80, opacity: 0.6, rotate: -12, scale: 0.85 } : {}}
+          whileHover={{ x: -100, opacity: 1, rotate: -5, scale: 0.9, zIndex: 30 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="flex gap-6 sm:gap-10 items-center min-w-max"
+          className="absolute left-[10%] sm:left-[20%] w-[200px] sm:w-[280px] aspect-[9/19.5] bg-[#121212] rounded-[32px] sm:rounded-[48px] border-[6px] sm:border-[10px] border-[#171717] shadow-2xl overflow-hidden cursor-pointer hidden sm:block"
+          style={{ transformStyle: 'preserve-3d', perspective: '1200px' }}
         >
-          {screenshots.map((src, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ 
-                y: -10,
-                scale: 1.02,
-                rotateY: 5,
-                z: 50
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="relative w-[220px] sm:w-[260px] aspect-[9/19.5] bg-[#121212] rounded-[32px] sm:rounded-[40px] border-[6px] sm:border-[8px] border-[#171717] shadow-2xl overflow-hidden cursor-pointer group/card"
-              style={{
-                perspective: '1000px',
-                transformStyle: 'preserve-3d'
-              }}
-            >
-              <img
-                src={src}
-                alt={`Radius Screenshot ${index + 1}`}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
-              />
-              
-              {/* Glossy Overlay */}
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
-              
-              {/* Screenshot Metadata Label (Only visible on hover or mobile) */}
-              <div className="absolute bottom-6 left-6 right-6 z-20 translate-y-4 opacity-0 group-hover/card:translate-y-0 group-hover/card:opacity-100 transition-all duration-500">
-                <div className="bg-white/90 backdrop-blur-md p-2 rounded-sm border border-white/20 shadow-lg">
-                   <p className="text-[8px] font-mono font-bold text-[#171717] uppercase tracking-tighter">
-                     Production Capture {index + 1} / 05
-                   </p>
-                </div>
-              </div>
+          <img src={mainScreenshots[0]} alt="Radius Left" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+        </motion.div>
 
-              {/* Shadow depth effect */}
-              <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.5)] pointer-events-none" />
-            </motion.div>
-          ))}
+        {/* Right Phone */}
+        <motion.div
+          initial={{ x: 100, opacity: 0, rotate: 15, scale: 0.8 }}
+          animate={isInView ? { x: 80, opacity: 0.6, rotate: 12, scale: 0.85 } : {}}
+          whileHover={{ x: 100, opacity: 1, rotate: 5, scale: 0.9, zIndex: 30 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute right-[10%] sm:right-[20%] w-[200px] sm:w-[280px] aspect-[9/19.5] bg-[#121212] rounded-[32px] sm:rounded-[48px] border-[6px] sm:border-[10px] border-[#171717] shadow-2xl overflow-hidden cursor-pointer hidden sm:block"
+          style={{ transformStyle: 'preserve-3d', perspective: '1200px' }}
+        >
+          <img src={mainScreenshots[2]} alt="Radius Right" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+        </motion.div>
+
+        {/* Center Phone (Main) */}
+        <motion.div
+          initial={{ y: 100, opacity: 0, scale: 0.9 }}
+          animate={isInView ? { y: 0, opacity: 1, scale: 1 } : {}}
+          whileHover={{ scale: 1.05, rotateY: 5, rotateX: 2 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-20 w-[240px] sm:w-[320px] aspect-[9/19.5] bg-[#121212] rounded-[40px] sm:rounded-[56px] border-[8px] sm:border-[12px] border-[#171717] shadow-[0_40px_80px_rgba(0,0,0,0.4)] overflow-hidden cursor-pointer"
+          style={{ transformStyle: 'preserve-3d', perspective: '1200px' }}
+        >
+          <img src={mainScreenshots[1]} alt="Radius Center" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent pointer-events-none" />
         </motion.div>
       </div>
 
